@@ -14,9 +14,9 @@ var cors = require('cors')
 
   const mongoose = require('mongoose');
 
-  mongoose.connect('mongodb+srv://vrutika:vrutika123@atlascluster.cfdzeov.mongodb.net/blog-app')
+  mongoose.connect('mongodb+srv://vrutika:vrutika123@atlascluster.cfdzeov.mongodb.net/blog-app?retryWrites=true&w=majority')
     .then(() => console.log('Connected!'))
-    .catch((error)=>{console.log(error)});
+    .catch((error)=>{console.log(error.message)});
 
     
     
