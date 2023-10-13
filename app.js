@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors')
+var cors = require('cors');
+const passport = require('passport');
+const session = require('express-session');
+const passportConfig = require('./passport-config')
 
 
 
@@ -14,9 +17,9 @@ var cors = require('cors')
 
   const mongoose = require('mongoose');
 
-  mongoose.connect('mongodb+srv://vrutika:vrutika123@atlascluster.cfdzeov.mongodb.net/blog-app?retryWrites=true&w=majority')
+  mongoose.connect('mongodb+srv://vrutika:vrutika123@atlascluster.cfdzeov.mongodb.net/blog-app')
     .then(() => console.log('Connected!'))
-    .catch((error)=>{console.log(error.message)});
+    .catch((error)=>{console.log(error)});
 
     
     
@@ -37,6 +40,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// for Log in with Gmail
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport);
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);

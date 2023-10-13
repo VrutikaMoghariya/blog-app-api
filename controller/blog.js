@@ -39,7 +39,7 @@ exports.getBlog = async function (req, res, next) {
         res.status(400).json({
             status: " Fail",
             msg: "Blog not get Successfully",
-            data: error
+            data: error.message
         })
     }
 }
@@ -87,7 +87,9 @@ exports.searchBlog = async function (req, res, next) {
 exports.getuserBlog = async function (req, res, next) {
 
     try {
+
         const getBlog = await BLOG.find({ user: req.userId }).populate('category').populate('user').sort({ createdAt: -1 });
+       
         res.status(200).json({
             status: "Success",
             msg: "User-Blog get Successfully",
