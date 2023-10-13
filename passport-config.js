@@ -7,7 +7,7 @@ module.exports = function (passport) {
     passport.use(new GoogleStrategy({
         clientID: "807127153-s6rc8ll8tvisiec06tam56n89dvdap1a.apps.googleusercontent.com",
         clientSecret: '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',
-        callbackURL: 'http://localhost:3001/user/auth/google/callback',
+        callbackURL: 'https://blog-app-iicz.onrender.com/user/auth/google/callback',
     }, async (accessToken, refreshToken, profile, done) => {
 
         try {
