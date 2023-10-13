@@ -42,23 +42,8 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
-        res.redirect(`http://localhost:3000/gmail/login?token=${req.authInfo}`);
+        res.redirect(`https://blog-app-ui-6prm.onrender.com/gmail/login?token=${req.authInfo}`);
     });
-
-router.get('/auth/google/revarify', auth , async (req, res, next) => {
-    try {
-       
-        let checkUser = await USER.findById(req.userId);
-
-        if (!checkUser) {
-            throw { status: 401, message: "user not found" };
-        }
-
-        res.status(200).json({ message: 'User reverified successfully', token, data: checkUser });
-    } catch (error) {
-        res.status(error.status || 500).json({ error: error.message });
-    }
-});
 
 
 module.exports = router;
